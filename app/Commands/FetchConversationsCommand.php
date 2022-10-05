@@ -4,7 +4,6 @@ namespace App\Commands;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use App\Repositories\MessageRepository;
 use LaravelZero\Framework\Commands\Command;
 use App\Repositories\ConversationRepository;
 use Symfony\Component\Console\Helper\ProgressBar;
@@ -15,7 +14,7 @@ final class FetchConversationsCommand extends Command
 
     protected $description = 'Fetch and store conversation in local database';
 
-    public function handle(ConversationRepository $conversation, MessageRepository $message): int
+    public function handle(ConversationRepository $conversation): int
     {
         $loop = \ceil($conversation->fetchCount() / 10);
 
