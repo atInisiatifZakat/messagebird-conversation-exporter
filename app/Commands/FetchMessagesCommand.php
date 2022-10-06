@@ -41,9 +41,11 @@ final class FetchMessagesCommand extends Command
                         $content = $message['content']['text'];
                     }
 
-                    $values = Arr::only($message, ['message_id', 'conversation_id', 'platform', 'to', 'from', 'type']);
+                    $values = Arr::only($message, ['platform', 'to', 'from', 'type']);
 
                     DB::table('messages')->updateOrInsert(['message_id' => $message['id']], \array_merge($values, [
+                        'message_id' => $message['id'],
+                        'conversation_id' => $message['conversationId'],
                         'content' => $content,
                         'raw' => \json_encode($message),
                         'created_at' => now(),
