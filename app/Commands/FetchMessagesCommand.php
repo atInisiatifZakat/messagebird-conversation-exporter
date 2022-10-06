@@ -37,7 +37,7 @@ final class FetchMessagesCommand extends Command
                         $content = $message['content']['hsm']['templateName'];
                     }
 
-                    if ($message['type'] === 'text') {
+                    if ($message['type'] === 'text' && \array_key_exists('text', $message['content'])) {
                         $content = $message['content']['text'];
                     }
 
