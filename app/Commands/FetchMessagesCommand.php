@@ -33,7 +33,7 @@ final class FetchMessagesCommand extends Command
                 foreach ($messages as $message) {
                     $content = '';
 
-                    if ($message['type'] === 'hsm') {
+                    if ($message['type'] === 'hsm' && \array_key_exists('hsm', $message['content'])) {
                         $content = $message['content']['hsm']['templateName'];
                     }
 
