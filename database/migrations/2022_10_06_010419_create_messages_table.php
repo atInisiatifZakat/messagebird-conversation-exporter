@@ -12,9 +12,9 @@ return new class extends Migration {
             $table->string('message_id');
             $table->string('conversation_id');
             $table->string('platform')->nullable();
-            $table->string('to', 25);
-            $table->string('from', 25);
-            $table->string('type', 25);
+            $table->string('to', 25)->nullable();
+            $table->string('from', 25)->nullable();
+            $table->string('type', 25)->nullable();
             $table->longText('content')->nullable();
             $table->json('raw')->nullable();
             $table->timestamps();

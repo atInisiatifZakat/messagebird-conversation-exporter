@@ -2,6 +2,7 @@
 
 namespace App\Commands;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use App\Repositories\MessageRepository;
 use LaravelZero\Framework\Commands\Command;
@@ -40,18 +41,14 @@ final class FetchMessagesCommand extends Command
                         $content = $message['content']['text'];
                     }
 
-                    DB::table('messages')->updateOrInsert(['message_id' => $message['id']], [
-                        'message_id' => $message['id'],
-                        'conversation_id' => $message['conversationId'],
-                        'platform' => $message['platform'],
-                        'to' => $message['to'],
-                        'from' => $message['from'],
-                        'type' => $message['type'],
+                    $values = Arr::only($message, ['message_id', 'conversation_id', 'platform', 'to', 'from', 'type']);
+
+                    DB::table('messages')->updateOrInsert(['message_id' => $message['id']], \array_merge($values, [
                         'content' => $content,
                         'raw' => \json_encode($message),
                         'created_at' => now(),
                         'updated_at' => now(),
-                    ]);
+                    ]));
                 }
 
                 $offset += 10;
